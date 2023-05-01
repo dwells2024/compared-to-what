@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+# from flask_cors import CORS
 import json
 
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 
 # CORS: allows anyone from anywhere to use your API:
-cors = CORS(app)
+# cors = CORS(app)
 with open("data/place_indices.json") as file:
 	place_indices = json.load(file)
 
