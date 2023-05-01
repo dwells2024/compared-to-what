@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 import json
 
 
-app = Flask(__name__, static_url_path='', static_folder='frontend/build')
+app = Flask(__name__)
 
 # CORS: allows anyone from anywhere to use your API:
 # cors = CORS(app)
@@ -15,7 +15,7 @@ with open("data/100nn_cities.json") as file:
 
 @app.route("/", defaults={'path':''})
 def default():
-	return send_from_directory(app.static_folder,'index.html')
+	return "Compared to what"
 
 @app.route("/all-places")
 def get_places():
