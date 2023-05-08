@@ -13,7 +13,8 @@ with open("data/place_indices.json") as file:
 with open("data/100nn_cities.json") as file:
 	knn_cities = json.load(file)
 
-@app.route("/", defaults={'path':''})
+# @app.route("/", defaults={'path':''})
+@app.route("/")
 def default():
 	return "Compared to what"
 
