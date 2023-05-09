@@ -35,18 +35,20 @@ def get_similar_cities():
 		return "<p>n must be an integer (max 100). Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for documentation."
 	
 	filter = request.args.get("filter")
-	print(filter)
 	if filter == None:
 		filter = "smart_no_location"
 	if filter + ".json" not in os.listdir("data/knns/"):
 		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
 	path = "data/knns/" + filter + ".json"
-	print(path)
 	
 	with open(path) as file:
 		knn_cities = json.load(file)
 	
-	similar_cities_indices = knn_cities[place_indices["places"][place]][1:n+1]
+	if type(knn_cities) == dict:
+		indices_list = knn_cities["knn"]
+	else:
+		indices_list = knn_cities
+	similar_cities_indices = indices_list[place_indices["places"][place]][1:n+1]
 	similar_cities_names = [place_indices["indices"][str(index)] for index in similar_cities_indices]
 	
 	return similar_cities_names
