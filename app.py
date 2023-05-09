@@ -37,7 +37,7 @@ def get_similar_cities():
 	filter = request.args.get("filter")
 	print(filter)
 	if filter == None:
-		filter = "default"
+		filter = "smart_no_location"
 	if filter + ".json" not in os.listdir("data/knns/"):
 		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
 	path = "data/knns/" + filter + ".json"
