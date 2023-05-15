@@ -100,7 +100,7 @@ def filter_description():
 	with open(path) as file:
 		filter_json = json.load(file)
 	
-	return "<p>" + filter_json["description"] + "</p><p>To see the weights for each metric click <a href=\"https:comparedtowhat.azurewebsites.net/filter-weights?filter=" + filter + "\">here</a>.</p>"
+	return "<p>" + filter_json["description"] + "</p><p>To see the weights for each metric click <a href=\"/filter-weights?filter=" + filter + "\">here</a>.</p>"
 
 @app.route("/latlong")
 def get_latlong():
