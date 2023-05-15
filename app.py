@@ -65,6 +65,43 @@ def get_filters():
 def print_filters():
 	return "".join(["<p>" + path[:-5] + "</p>" for path in os.listdir("data/knns/")])
 
+@app.route("/filter-weights")
+def filter_weights():
+	filter = request.args.get("filter")
+	if filter == None:
+		return "you must specify a filter"
+	
+	path = "data/knns/" + filter + ".json"
+	
+	with open(path) as file:
+		filter_json = json.load(file)
+
+	html = "<table><tr><th>Metric</th><th>Weight</th></tr>"
+
+	for i in range(len(filter_json["labels"])):
+		html += "<tr><td>"
+		html += filter_json["labels"][i]
+		html += "</td><td>"
+		html += str(filter_json["weights"][i])
+		html += "</td></tr>"
+
+	html += "</table>"
+
+	return html
+
+@app.route("/filter-description")
+def filter_description():
+	filter = request.args.get("filter")
+	if filter == None:
+		return "you must specify a filter"
+	
+	path = "data/knns/" + filter + ".json"
+	
+	with open(path) as file:
+		filter_json = json.load(file)
+	
+	return "<p>" + filter_json["description"] + "</p><p>To see the weights for each metric click <a href=\"https:comparedtowhat.azurewebsites.net/filter-weights?filter=" + filter + "\">here</a>.</p>"
+
 @app.route("/latlong")
 def get_latlong():
 	place = request.args.get("place")
