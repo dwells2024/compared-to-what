@@ -28,9 +28,9 @@ def default():
 def get_similar_cities():
 	place = request.args.get("place")
 	if place == None:
-		return "<p>You must specify a place. Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for examples."
+		return "<p>You must specify a place. Refer to <a href=\"https://comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for examples."
 	if place not in place_indices["places"]:
-		return "Place not found. Make sure you are using the correct census place name and formatting. Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for examples."
+		return "Place not found. Make sure you are using the correct census place name and formatting. Refer to <a href=\"https://comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for examples."
 	
 	n = request.args.get("n")
 	if n == None:
@@ -38,15 +38,15 @@ def get_similar_cities():
 	elif n.isnumeric():
 		n = int(n)
 		if n > 100:
-			return "<p>n must be an integer (max 100). Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for documentation."
+			return "<p>n must be an integer (max 100). Refer to <a href=\"https://comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for documentation."
 	else:
-		return "<p>n must be an integer (max 100). Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for documentation."
+		return "<p>n must be an integer (max 100). Refer to <a href=\"https://comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for documentation."
 	
 	filter = request.args.get("filter")
 	if filter == None:
 		filter = "Smart"
 	if filter not in filters:
-		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
+		return "<p>Filter not found. Click <a href=\"https://comparedtowhat.azurewebsites.net/filters\">here</a> for a list of all filters"
 	path = "data/knns/" + filters[filter]
 	
 	with open(path) as file:
@@ -84,7 +84,7 @@ def print_filters():
 		else:
 			html += "Sorry, this filter doesn't have a descritption."
 
-		html += " To see the weights for each metric click <a href=\"/filter-weights?filter=" + filter + "\">here</a>.</p>"
+		html += " To see the weights for each metric click <a href=\"https://comparedtowhat.azurewebsites.net/filter-weights?filter=" + filter + "\">here</a>.</p>"
 	return html
 
 @app.route("/filter-weights")
@@ -93,7 +93,7 @@ def filter_weights():
 	if filter == None:
 		return "you must specify a filter"
 	if filter not in filters:
-		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
+		return "<p>Filter not found. Click <a href=\"https://comparedtowhat.azurewebsites.net/filters\">here</a> for a list of all filters"
 	
 	path = "data/knns/" + filters[filter]
 	
@@ -124,7 +124,7 @@ def filter_description():
 	if filter == "default":
 		filter = "Smart"
 	elif filter not in filters:
-		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
+		return "<p>Filter not found. Click <a href=\"https://comparedtowhat.azurewebsites.net/filters\">here</a> for a list of all filters"
 	
 	
 	path = "data/knns/" + filters[filter]
@@ -141,7 +141,7 @@ def filter_description():
 def get_latlong():
 	place = request.args.get("place")
 	if place == None:
-		return "<p>You must specify a place. Refer to <a href=\"/\">comparedtowhat.azurewebsites.net</a> for examples."
+		return "<p>You must specify a place. Refer to <a href=\"https://comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for examples."
 	if place not in place_indices["places"]:
 		return "Place not found. Make sure you are using the correct census place name and formatting. Refer to <a href=\"comparedtowhat.azurewebsites.net\">comparedtowhat.azurewebsites.net</a> for examples."
 	
