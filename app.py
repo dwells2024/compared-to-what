@@ -135,7 +135,7 @@ def filter_description():
 	if type(filter_json) != dict:
 		return "Sorry, this filter doesn't have a description."
 	
-	return "<h3>Filter: " + filter + "</h3><p>" + filter_json["description"] + " To see the weights for each metric click <a href=\"/filter-weights?filter=" + filter + "\">here</a>.</p>"
+	return "<h3>Filter: " + filter + "</h3><p>" + filter_json["description"] + " To see the weights for each metric click <a href=\"https://comparedtowhat.azurewebsites.net/filter-weights?filter=" + filter + "\">here</a>.</p>"
 
 @app.route("/latlong")
 def get_latlong():
