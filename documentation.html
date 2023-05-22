@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Compared to What</title>
+</head>
+<body>
+    <h2>
+        Compared to What
+    </h2>
+    <p>
+        Compared to What is an API that finds similar cities based on census data. To see the API in action, you can use
+        <a href="https:/comparedtowhere.azurewebsites.net">Compared to Where</a>, an interactive search tool.
+    </p>
+    <br>
+    <h2>
+        Documentation
+    </h2>
+    <hr>
+    <h3>
+        Find similar cities
+    </h3>
+    <p>
+        <b>Route:</b> /get-similar
+        <br>
+        <b>Variables:</b>
+        <ul>
+            <li>place (required) - the name of the target city to find comparisons for. It must be the exact name of a U.S. census <a href="https://www.census.gov/programs-surveys/bas/information/cdp.html">place</a>.</li>
+            <li>fliter - the name of the filter applied to the search. This changes how census metrics are weighted to return different comparision cities. Defaults to "Smart", our recommended filter for general searches. The list of all filters can be found <a href="/filters"> here</a>.</li>
+            <li>n - the number of cities to return (max 100). Defaults to 10.</li>
+        </ul>
+    </p>
+    <p>Returns a list of similar cities to the target place based on census data.</p>
+    <p><b>Example:</b> <a href="/get-similar?place=Chicago+city,+Illinois&filter=Population&n=15"><i>comparedtowhat.azurewebsites.net/get-similar?place=Chicago+city,+Illinois&filter=Population&n=15</i></a></p>
+    <hr>
+    <h3>
+        Get all places
+    </h3>
+    <p>
+        <b>Route:</b> /all-places
+    </p>
+    <p>Returns a list of all recognized census places.</p>
+    <p><b>Example:</b> <a href="/all-places"><i>comparedtowhat.azurewebsites.net/all-places</i></a></p>
+    <hr>
+    <h3>
+        Get all filters
+    </h3>
+    <p>
+        <b>Route:</b> /all-filters
+    </p>
+    <p>Returns a list of all available filters</p>
+    <p><b>Example:</b> <a href="/all-filters"><i>comparedtowhat.azurewebsites.net/all-filters</i></a></p>
+    <hr>
+    <h3>
+        See all filters and their descriptions
+    </h3>
+    <p>
+        <b>Route:</b> /filters
+    </p>
+    <p>Shows a list of all available filters and their descriptions</p>
+    <p><b>Example:</b> <a href="/filters"><i>comparedtowhat.azurewebsites.net/filters</i></a></p>
+    <hr>
+    <h3>
+        See a filter's description
+    </h3>
+    <p>
+        <b>Route:</b> /filter-description
+        <br>
+        <b>Variables:</b>
+        <ul>
+            <li>fliter (required)- the name of the filter.</li>
+        </ul>
+    </p>
+    <p>Returns a description of what metrics are important for the filter</p>
+    <p><b>Example:</b> <a href="/filter-description?filter=Smart"><i>comparedtowhat.azurewebsites.net/filter-description?filter=Smart</i></a></p>
+    <hr>
+    <h3>
+        See a filter's weights
+    </h3>
+    <p>
+        <b>Route:</b> /filter-weights
+        <br>
+        <b>Variables:</b>
+        <ul>
+            <li>fliter (required)- the name of the filter.</li>
+        </ul>
+    </p>
+    <p>Shows a table of the filter's weights</p>
+    <p><b>Example:</b> <a href="/filter-weights?filter=Smart"><i>comparedtowhat.azurewebsites.net/filter-weights?filter=Smart</i></a></p>
+    <hr>
+    <h3>
+        Get a place's latitude and longitutde
+    </h3>
+    <p>
+        <b>Route:</b> /latlong
+        <br>
+        <b>Variables:</b>
+        <ul>
+            <li>place (required) - the name of the target city to find comparisons for. It must be the exact name of a U.S. census <a href="https://www.census.gov/programs-surveys/bas/information/cdp.html">place</a>.</li>
+        </ul>
+    </p>
+    <p>Returns a list containing the place's latitude and longitude.</p>
+    <p><b>Example:</b> <a href="/latlong?place=Chicago+city,+Illinois"><i>comparedtowhat.azurewebsites.net/latlong?place=Chicago+city,+Illinois</i></a></p>
+</body>
+</html>

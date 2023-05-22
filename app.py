@@ -1,20 +1,30 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import os
 # from flask_cors import CORS
 import json
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 # CORS: allows anyone from anywhere to use your API:
 # cors = CORS(app)
 with open("data/place_indices.json") as file:
 	place_indices = json.load(file)
 
+filters = {
+	"Age": "age.json",
+	"Far-away": "distance.json",
+	"Nearby": "location.json",
+	"Unweighted": "no_weights.json",
+	"Original": "original.json",
+	"Population": "population.json",
+	"Smart": "smart_no_location.json"
+}
+
 # @app.route("/", defaults={'path':''})
 @app.route("/")
 def default():
-	return "<p>Compared to What API</p><p>Documentation coming soon</p>"
+	return render_template("documentation.html")
 
 @app.route("/get-similar")
 def get_similar_cities():
@@ -36,10 +46,10 @@ def get_similar_cities():
 	
 	filter = request.args.get("filter")
 	if filter == None:
-		filter = "smart_no_location"
-	if filter + ".json" not in os.listdir("data/knns/"):
+		filter = "Smart"
+	if filter not in filters:
 		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
-	path = "data/knns/" + filter + ".json"
+	path = "data/knns/" + filters[filter]
 	
 	with open(path) as file:
 		knn_cities = json.load(file)
@@ -59,24 +69,43 @@ def get_places():
 
 @app.route("/all-filters")
 def get_filters():
-	return jsonify([path[:-5] for path in os.listdir("data/knns/")])
+	return jsonify(list(filters.keys()))
 
 @app.route("/filters")
 def print_filters():
-	return "".join(["<p>" + path[:-5] + "</p>" for path in os.listdir("data/knns/")])
+	html = ""
+
+	for filter in filters:
+		html += "<p>" + filter + " - "
+
+		with open("data/knns/" + filters[filter]) as file:
+			filter_json = json.load(file)
+
+		if type(filter_json) == dict:
+			html += filter_json["description"]
+		else:
+			html += "Sorry, this filter doesn't have a descritption."
+
+		html += " To see the weights for each metric click <a href=\"/filter-weights?filter=" + filter + "\">here</a>.</p>"
+	return html
 
 @app.route("/filter-weights")
 def filter_weights():
 	filter = request.args.get("filter")
 	if filter == None:
 		return "you must specify a filter"
+	if filter not in filters:
+		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
 	
-	path = "data/knns/" + filter + ".json"
+	path = "data/knns/" + filters[filter]
 	
 	with open(path) as file:
 		filter_json = json.load(file)
+	
+	if type(filter_json) != dict:
+		return "Sorry, this filter doesn't have info about the weights"
 
-	html = "<table><tr><th>Metric</th><th>Weight</th></tr>"
+	html = "<h2>Weights for the " + filter + "filter.</h2><table><tr><th>Metric</th><th>Weight</th></tr>"
 
 	for i in range(len(filter_json["labels"])):
 		html += "<tr><td>"
@@ -94,11 +123,17 @@ def filter_description():
 	filter = request.args.get("filter")
 	if filter == None:
 		return "you must specify a filter"
+	if filter not in filters:
+		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
 	
-	path = "data/knns/" + filter + ".json"
+	
+	path = "data/knns/" + filters[filter]
 	
 	with open(path) as file:
 		filter_json = json.load(file)
+	
+	if type(filter_json) != dict:
+		return "Sorry, this filter doesn't have a description."
 	
 	return "<p>" + filter_json["description"] + "</p><p>To see the weights for each metric click <a href=\"/filter-weights?filter=" + filter + "\">here</a>.</p>"
 
