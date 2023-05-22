@@ -12,13 +12,11 @@ with open("data/place_indices.json") as file:
 	place_indices = json.load(file)
 
 filters = {
-	"Age": "age.json",
-	"Far-away": "distance.json",
-	"Nearby": "location.json",
-	"Unweighted": "no_weights.json",
-	"Original": "original.json",
+	"Smart": "05_22_smart_no_location.json",
+	"Smart - Nearby": "05_22_smart_with_location.json",
 	"Population": "population.json",
-	"Smart": "smart_no_location.json"
+	"Age": "age.json",
+	"Unweighted": "no_weights.json"	
 }
 
 # @app.route("/", defaults={'path':''})
