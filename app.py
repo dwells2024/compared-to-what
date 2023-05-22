@@ -14,9 +14,9 @@ with open("data/place_indices.json") as file:
 filters = {
 	"Smart": "05_22_smart_no_location.json",
 	"Smart - Nearby": "05_22_smart_with_location.json",
-	"Population": "population.json",
+	"Population": "05_22_population_no_location.json",
 	"Age": "age.json",
-	"Unweighted": "no_weights.json"	
+	"Unweighted": "05_22_no_weights.json"	
 }
 
 # @app.route("/", defaults={'path':''})
@@ -121,7 +121,9 @@ def filter_description():
 	filter = request.args.get("filter")
 	if filter == None:
 		return "you must specify a filter"
-	if filter not in filters:
+	if filter == "default":
+		filter = "Smart"
+	elif filter not in filters:
 		return "<p>Filter not found. Click <a href=\"/filters\">here</a> for a list of all filters"
 	
 	
