@@ -15,7 +15,13 @@ filters = {
 	"Smart": "05_22_smart_no_location.json",
 	"Smart - Nearby": "05_22_smart_with_location.json",
 	"Population": "05_22_population_no_location.json",
-	"Age": "age.json",
+	"Population - Nearby": "05_22_population_with_location.json",
+	"Age": "05_22_age_no_location.json",
+	"Age - Nearby": "05_22_age_with_location.json",
+	"Race": "05_22_race_no_location.json",
+	"Race - Nearby": "05_22_race_with_location.json",
+	"Income": "05_22_income_no_location.json",
+	"Income - Nearby": "05_22_income_with_location.json",
 	"Unweighted": "05_22_no_weights.json"	
 }
 
